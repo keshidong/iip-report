@@ -1,0 +1,66 @@
+<div data-role="page" id="profile">
+  <div data-role="header">
+    <a href="#panel" class="ui-btn ui-btn-left ui-btn-icon-notext ui-icon-grid ui-corner-all"></a>
+    <h1>提交概况</h1>
+  </div>
+  <div data-role="main" class="ui-content profile-content">
+    <div data-role="tabs" class="profile-tabs">
+      <div data-role="navbar">
+        <ul class="profile-tab">
+          <li><a href="#profile-currentweek" class="ui-btn-active bt-tab" id="profile-currentweek-title"></a></li>
+          <li><a href="#profile-lastweek" class="bt-tab" id="profile-lastweek-title"></a></li>
+        </ul>
+      </div>
+      <div id="profile-currentweek">
+        <div id="content-currentweek"></div>
+        <script id="tpl-currentweek" type="text/html">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>姓名</th>
+              <th>提交状态</th>
+              <th>审核状态</th>
+              <th>备注</th>
+            </tr>
+          </thead>
+          <tbody>
+            {{each rows as value i}}
+            <tr>
+              <td>{{value.name}}</td>
+              <td class="report-mark {{if value.reportstatus == '已提交'}}pass{{/if}}">{{value.reportstatus}}</td>
+              <td class="report-mark {{if value.reviewstatus == '已审核'}}pass{{/if}}">{{value.reviewstatus}}</td>
+              <td>{{value.remark}}</td>
+            </tr>
+            {{/each}}
+          </tbody>
+        </table>
+        </script>
+      </div>
+
+      <div id="profile-lastweek">
+        <div id="content-lastweek"></div>
+        <script id="tpl-lastweek" type="text/html">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>姓名</th>
+              <th>提交状态</th>
+              <th>审核状态</th>
+              <th>备注</th>
+            </tr>
+          </thead>
+          <tbody>
+            {{each rows as value i}}
+            <tr>
+              <td>{{value.name}}</td>
+              <td class="report-mark {{if value.reportstatus == '已提交'}}pass{{/if}}">{{value.reportstatus}}</td>
+              <td class="report-mark {{if value.reviewstatus == '已审核'}}pass{{/if}}">{{value.reviewstatus}}</td>
+              <td>{{value.remark}}</td>
+            </tr>
+            {{/each}}
+          </tbody>
+        </table>
+        </script>
+      </div>
+  </div>
+</div>

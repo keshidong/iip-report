@@ -1,0 +1,39 @@
+.table {
+    height: 89%;
+    margin: 0 auto;
+    border-collapse:collapse;
+}
+table>tbody>tr>td,
+.table>tbody>tr>th, .table>tfoot>tr>td,
+.table>tfoot>tr>th, .table>thead>tr>td,
+.table>thead>tr>th {
+    padding: 8px;
+    line-height: 1.42857143;
+    vertical-align: top;
+    border-top: 1px solid #ddd;
+    text-align: center;
+    font-size: 14px;
+}
+
+.table-striped>tbody>tr:nth-of-type(odd) {
+    background-color: #e7e7e7;
+}
+
+.look-edit {
+    text-decoration: underline;
+    color: green;
+}
+
+textarea.history-textarea {
+    min-height: 14em;
+    max-height: 14em;
+    overflow-y: auto !important;
+    resize:none;
+    font-size: 14px;
+    text-align: justify;
+}
+
+.text-title {
+    font-size: 14px;
+    margin: 6px;
+}

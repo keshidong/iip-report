@@ -1,0 +1,24 @@
+#submit {
+    overflow-y: scroll;
+}
+.submit-edit {
+    padding-top: 0px;
+}
+.submit-note {
+    display: inline-block;
+    float: right;
+    color: red;
+    font-size: 0.8em;
+    margin-bottom: 0.5em;
+}
+textarea.submit-textarea {
+    min-height: 14em;
+    overflow-y: auto !important;
+}
+
+.submit-tab li.ui-state-active a.bt-tab {
+    background-color: #38c;
+    border-color: #38c;
+    color: #fff;
+    text-shadow: 0 1px 0 #059;
+}

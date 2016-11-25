@@ -1,0 +1,32 @@
+<div data-role="page" id="submit">
+  <div data-role="header">
+    <a href="#panel" class="ui-btn ui-btn-left ui-btn-icon-notext ui-icon-grid ui-corner-all"></a>
+    <h1>总结提交</h1>
+  </div>
+
+  <div data-role="main" class="ui-content submit-edit">
+  <select data-native-menu="false" class="ui-btn-inline" id="submit-select">
+      <option value="lastWeek" id="submit-lastweek">上周：2016-11-14~2016-11-21</option>
+      <option value="currentWeek" id="submit-currentweek" selected>本周：2016-11-14~2016-11-21</option>
+  </select>
+  <div data-role="tabs">
+		<div data-role="navbar" class="submit-tab">
+			<ul>
+				<li><a href="#submit-thisweek" class="ui-btn-active bt-tab">本周总结</a></li>
+				<li><a href="#submit-nextweek" class="bt-tab">下周计划</a></li>
+			</ul>
+ 		</div>
+		<div id="submit-thisweek">
+			<textarea class="submit-textarea" id="textarea1" placeholder="本周总结（不少于70字）"></textarea>
+      <span class="submit-note" id="submit-thisweek-note"></span>
+    </div>
+		<div id="submit-nextweek">
+      <textarea class="submit-textarea" id="textarea2" placeholder="下周计划（不少于70字）"></textarea>
+      <span class="submit-note" id="submit-nextweek-note"></span>
+    </div>
+  </div>
+
+  <button class="ui-btn" id="submit-btn">提交</button>
+  </div>
+
+</div>

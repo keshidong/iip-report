@@ -1,0 +1,50 @@
+<div data-role="page" id="history">
+    <div data-role="header">
+        <a href="#panel" class="ui-btn ui-btn-left ui-btn-icon-notext ui-icon-grid ui-corner-all"></a>
+        <h1>提交历史</h1>
+    </div>
+
+    <div data-role="main" class="ui-content">
+        <table class="table">
+        <thead>
+            <tr>
+            <th>总结时间</th>
+            <th>提交状态</th>
+            <th>审核状态</th>
+            <th>操作</th>
+            </tr>
+        </thead>
+        <tbody id="history-contlist"></tbody>
+            <script id="history-list"  type="text/html">
+            {{each rows as value i}}
+            <tr>
+                <td>{{value.week}}</td>
+                <td class= "report-mark {{if value.reportstatus == '已提交'}}pass{{/if}}">{{value.reportstatus}}</td>
+                <td class="report-mark {{if value.reviewstatus == '已审核'}}pass{{/if}}">{{value.reviewstatus}}</td>
+                <td data-reportdate="{{value.week}}" class="look-edit {{if value.reviewstatus != '已审核'}}reportedit-btn{{else}}reportlook-btn{{/if}}">{{value.detail}}</td>
+            </tr>
+            {{/each}}
+            </script>
+        </table>
+    </div>
+
+    <!--预览对话框-->
+    <div data-role="popup" id="popupDlg" data-overlay-theme="b" data-theme="b" style="width:280px;">
+    <div data-role="tabs">
+		<div data-role="navbar">
+			<ul>
+				<li><a href="#content-summary" data-ajax="false" class="ui-btn-active" id="content-summarytab">总结内容</a></li>
+				<li><a href="#opinion-check" data-ajax="false" id="content-ckecktab">审核意见</a></li>
+			</ul>
+		</div>
+		<div id="content-summary">
+			<div class="text-title">时间：<span node-type="history-date">2016-11-23</span></div>
+			<textarea class="history-textarea" readonly="true"></textarea>
+		</div>
+		<div id="opinion-check">
+			<div class="text-title">审核人：<span node-type="history-checkman">XXX</span></div>
+			<textarea class="history-textarea" readonly="true"></textarea>
+	</div>
+    </div>
+    </div>
+</div>
