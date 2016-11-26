@@ -22,3 +22,7 @@ textarea.submit-textarea {
     color: #fff;
     text-shadow: 0 1px 0 #059;
 }
+
+.submitbtn-wrap {
+    text-align: center;
+}

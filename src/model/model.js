@@ -96,6 +96,45 @@ function reportdetail(username, date, fn) {
     });
 }
 
+function sendreport(to, subject, week_msg, next_msg, fn) {
+    var formData = new FormData();
+    formData.append('to', to);
+    formData.append('subject', subject);
+    formData.append('week_msg', week_msg);
+    formData.append('next_msg', next_msg);
+    formData.append('file-path', '');
+
+    $.ajax({
+        url: 'Report/SendReport',
+        type: 'POST',
+        data: formData,
+        processData: false,
+        contentType: false,
+        dataType: 'text',
+        success: function (str) {
+            var json = (new Function("return " + str))();
+            fn(json);
+        }
+    });
+}
+
+function updatereport(user, week, subject, msg, fn) {
+    $.ajax({
+        url: 'Report/Updatereport',
+        data: {
+            week: week,
+            subject: subject,
+            msg: msg,
+            user: user
+        },
+        dataType: 'text',
+        success: function (str) {
+            var json = (new Function("return " + str))();
+            fn(json);
+        }
+    });
+}
+
 // 存储时间
 var curDate = new Date();
 var day = curDate.getUTCDay();
@@ -112,5 +151,7 @@ module.exports = {
     lastWeek: timeStr1,
     currentWeek: timeStr2,
     history: history,
-    reportdetail: reportdetail
+    reportdetail: reportdetail,
+    sendreport: sendreport,
+    updatereport: updatereport
 }

@@ -9,11 +9,11 @@
       <option value="lastWeek" id="submit-lastweek">上周：2016-11-14~2016-11-21</option>
       <option value="currentWeek" id="submit-currentweek" selected>本周：2016-11-14~2016-11-21</option>
   </select>
-  <div data-role="tabs">
+  <div data-role="tabs" id="submit-editarea">
 		<div data-role="navbar" class="submit-tab">
 			<ul>
-				<li><a href="#submit-thisweek" class="ui-btn-active bt-tab">本周总结</a></li>
-				<li><a href="#submit-nextweek" class="bt-tab">下周计划</a></li>
+				<li><a href="#submit-thisweek" class="ui-btn-active bt-tab" id="submit-thisweektab">本周总结</a></li>
+				<li><a href="#submit-nextweek" class="bt-tab" id="submit-nextweektab">下周计划</a></li>
 			</ul>
  		</div>
 		<div id="submit-thisweek">
@@ -27,6 +27,17 @@
   </div>
 
   <button class="ui-btn" id="submit-btn">提交</button>
+
+  <div data-role="popup" id="submit-sure" data-overlay-theme="b" data-theme="b" data-dismissible="false" style="max-width:400px;">
+		<div role="main" class="ui-content">
+				<h3 class="ui-title">你确定要<span id="submit-editt">提交</span>报告吗?</h3>
+				<p>提交人：<span id="submit-editm"></span> 提交周次：<span id="submit-editw">2016-11-25~2016-11-26</span></p>
+				<div class="submitbtn-wrap">
+				<div class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" id="sumit-sureok">确认</div>
+				<div class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" id="sumit-surecancel">取消</div>
+				</div>
+		</div>
+  </div>
   </div>
 
 </div>
