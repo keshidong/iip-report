@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "webpack --progress --colors && webpack-dev-server --hot --inline",
-    "build": "webpack -p"
+    "pack": "webpack -p  && webpack-dev-server --hot --inline"
   },
   "devDependencies": {
     "css-loader": "^0.23.0",
