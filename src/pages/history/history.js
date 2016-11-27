@@ -14,10 +14,6 @@ $(document).on('afterSession', '#history',function() { //当进入history页面�
     });
 });
 
-// model.reportdetail('柯诗栋', '16-12-05', function (data) {
-//     console.log(data)
-// });
-
 $('#history-contlist').on('tap', '.look-edit.reportlook-btn', function (event) {
     event.stopPropagation();
 

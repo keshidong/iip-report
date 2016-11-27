@@ -7,7 +7,7 @@ var html = require('./submit.html');
 $('body').append(html);
 
 var lastWeek = new Date(model.lastWeek);
-var lastStr = '上周：' + new Date(lastWeek - 7*24*3600*1000).toLocaleDateString().replace(/\//g, '-') + '~' + model.lastWeek;
+var lastStr = '上周：' + model.lastlastWeek + '~' + model.lastWeek;
 
 var currentWeek = new Date(model.currentWeek);
 var currentStr = '本周：' + model.lastWeek + '~' + model.currentWeek;

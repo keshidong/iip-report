@@ -14,15 +14,36 @@ function login (user, password, fn) {
 
     });
 }
+function formatDateweek(date) {
+    function pad(n) {return n < 10 ? "0" + n : n;}
+    return date.getFullYear() + '-' + pad(date.getMonth() + 1) + '-' + pad(date.getDate());
+}
+
+function getLastweekDate() {
+    var curDate = new Date();
+    var day = curDate.getUTCDay() || 7;
+    curDate.setDate(curDate.getDate() - day + 1);
+    var timeStr = formatDateweek(curDate);
+    return timeStr;
+}
+
+function getLastLastweekDate() {
+    var date = new Date(getLastweekDate());
+    return formatDateweek(new Date(date - 7*24*3600*1000));
+}
+
+function getCurrentweekDate() {
+    var curDate = new Date();
+    var day = curDate.getUTCDay() || 7;
+    curDate.setDate(curDate.getDate() + 7 - day + 1);
+    var timeStr = formatDateweek(curDate);
+    return timeStr;
+}
 
 function getLastProfile (fn) {
-    var curDate = new Date();
-    var day = curDate.getUTCDay();
-    curDate.setDate(curDate.getDate() - day + 1);
-    var timeStr = curDate.toLocaleDateString().replace(/\//g, '-');
-    var timeString = timeStr.substring(2);
+    var timeString = getLastweekDate().substring(2);
     $.ajax({
-        url: 'Report/Lastreportproxy',
+        url: '/Report/Lastreportproxy',
         data: {
             week: timeString
         },
@@ -35,13 +56,9 @@ function getLastProfile (fn) {
 }
 
 function getCurrentProfile (fn) {
-    var curDate = new Date();
-    var day = curDate.getUTCDay();
-    curDate.setDate(curDate.getDate() + 7 - day + 1);
-    var timeStr = curDate.toLocaleDateString().replace(/\//g, '-');
-    var timeString = timeStr.substring(2);
+    var timeString = getCurrentweekDate().substring(2);
     $.ajax({
-        url: 'Report/Initialize',
+        url: '/Report/Initialize',
         data: {
             week: timeString
         },
@@ -55,7 +72,7 @@ function getCurrentProfile (fn) {
 
 function getSession (fn) {
     $.ajax({
-        url: 'Report/Getsession',
+        url: '/Report/Getsession',
         type: 'POST',
         success: function (data) {
             // console.log(data);
@@ -66,7 +83,7 @@ function getSession (fn) {
 
 function history (username, fn) {
     $.ajax({
-        url: 'Report/Historyproxy',
+        url: '/Report/Historyproxy',
         data: {
             user: username,
             page: 1,
@@ -83,7 +100,7 @@ function history (username, fn) {
 
 function reportdetail(username, date, fn) {
     $.ajax({
-        url: 'Report/Detail',
+        url: '/Report/Detail',
         type: 'POST',
         data: {
             name: username,
@@ -105,7 +122,7 @@ function sendreport(to, subject, week_msg, next_msg, fn) {
     formData.append('file-path', '');
 
     $.ajax({
-        url: 'Report/SendReport',
+        url: '/Report/SendReport',
         type: 'POST',
         data: formData,
         processData: false,
@@ -120,7 +137,7 @@ function sendreport(to, subject, week_msg, next_msg, fn) {
 
 function updatereport(user, week, subject, msg, fn) {
     $.ajax({
-        url: 'Report/Updatereport',
+        url: '/Report/Updatereport',
         data: {
             week: week,
             subject: subject,
@@ -135,21 +152,14 @@ function updatereport(user, week, subject, msg, fn) {
     });
 }
 
-// 存储时间
-var curDate = new Date();
-var day = curDate.getUTCDay();
-curDate.setDate(curDate.getDate() - day + 1);
-var timeStr1 = curDate.toLocaleDateString().replace(/\//g, '-');
-curDate.setDate(curDate.getDate() + 7);
-var timeStr2 = curDate.toLocaleDateString().replace(/\//g, '-');
-
 module.exports = {
     login: login,
     getLastProfile: getLastProfile,
     getCurrentProfile: getCurrentProfile,
     getSession: getSession,
-    lastWeek: timeStr1,
-    currentWeek: timeStr2,
+    lastWeek: getLastweekDate(),
+    currentWeek: getCurrentweekDate(),
+    lastlastWeek: getLastLastweekDate(),
     history: history,
     reportdetail: reportdetail,
     sendreport: sendreport,
