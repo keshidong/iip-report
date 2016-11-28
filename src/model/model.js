@@ -21,7 +21,7 @@ function formatDateweek(date) {
 
 function getLastweekDate() {
     var curDate = new Date();
-    var day = curDate.getUTCDay() || 7;
+    var day = curDate.getDay() || 7;
     curDate.setDate(curDate.getDate() - day + 1);
     var timeStr = formatDateweek(curDate);
     return timeStr;
@@ -34,7 +34,7 @@ function getLastLastweekDate() {
 
 function getCurrentweekDate() {
     var curDate = new Date();
-    var day = curDate.getUTCDay() || 7;
+    var day = curDate.getDay() || 7;
     curDate.setDate(curDate.getDate() + 7 - day + 1);
     var timeStr = formatDateweek(curDate);
     return timeStr;

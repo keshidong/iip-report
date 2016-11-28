@@ -11,4 +11,5 @@
     left: 50%;
     transform: translateX(-50%);
     line-height: 30px;
+    white-space: nowrap;
 }

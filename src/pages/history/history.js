@@ -37,10 +37,15 @@ $('#history-contlist').on('tap', '.look-edit.reportlook-btn', function (event) {
 
 $('#history-contlist').on('tap', '.look-edit.reportedit-btn', function (event) {
      event.stopPropagation();
+     var dateweek = $(this).data('reportdate');
 
+     if (dateweek !== model.lastWeek.substring(2) && dateweek !== model.currentWeek.substring(2)) {
+         tips('时间较久，请登陆电脑编辑');
+         return false;
+     }
      model.comefrom = {
          'target': 'history',
-         'date': $(this).data('reportdate')
+         'date': dateweek
      };
 
      $.mobile.changePage('#submit');
