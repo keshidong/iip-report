@@ -13,9 +13,9 @@ var currentWeek = new Date(model.currentWeek);
 var currentStr = '本周：' + model.lastWeek + '~' + model.currentWeek;
 
 $('#submit-lastweek').text(lastStr);
-$('#submit-lastweek').val(model.lastWeek.substring(2));
+$('#submit-lastweek').val(model.lastWeek);
 $('#submit-currentweek').text(currentStr);
-$('#submit-currentweek').val(model.currentWeek.substring(2));
+$('#submit-currentweek').val(model.currentWeek);
 
 $('.submit-textarea').on('input', function () {
     var $note = $(this).next();
@@ -39,12 +39,12 @@ function reset(str) { // str: 提交， 修改， 已审核
     $('#submit-thisweektab').addClass('ui-btn-active');
     $submitbtn.text(str);
     $submitbtn.data('editable', editmap[str]);
-    $submitbtn.disabled = false;
+    $submitbtn.attr('disabled', false);
     $('#submit-editarea textarea').readonly = false;
     if (editmap[str] === 2) {
         $('#submit-editarea textarea').readonly = true;
         $submitbtn.text('已审核');
-        $submitbtn.disabled = true;
+        $submitbtn.attr('disabled', true);
     } else if (editmap[str] === 1) {
         $submitbtn.text('修改');
     } else if (editmap[str] === 0) {
@@ -127,11 +127,9 @@ $('#sumit-sureok').tap(function () {
     var dateweek = $('#submit-select').val();
 
     var to = $("#submit-select").find("option:selected").text();
-    var subject = '工作总结-' + dateweek + '-' + username;
-    var msg = '本周工作:' + '\n' + p1 + '\n' + '下周计划:' + '\n' +  p2;
 
     if ($('#submit-btn').data('editable') === 0) {
-        model.sendreport(to, subject, p1, p2, function (data) {
+        model.sendreport(to, dateweek, username, p1, p2, function (data) {
             if (data.success && data.allow) {
                 tips('报告提交成功');
                 $('#submit-sure').popup('close');
@@ -141,7 +139,7 @@ $('#sumit-sureok').tap(function () {
             }
         });
     } else if ($('#submit-btn').data('editable') === 1) {
-        model.updatereport(username, dateweek, subject, msg, function (data) {
+        model.updatereport(username, dateweek, p1, p2, function (data) {
             tips('报告修改成功');
             $('#submit-sure').popup('close');
             setTimeout(function () {

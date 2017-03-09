@@ -41,9 +41,10 @@ function getCurrentweekDate() {
 }
 
 function getLastProfile (fn) {
-    var timeString = getLastweekDate().substring(2);
+    var isUnder = !!(modelObj.userInfo && modelObj.userInfo.permission && modelObj.userInfo.permission === '本科生');
+    var timeString = isUnder ? getLastweekDate() : getLastweekDate().substring(2);
     $.ajax({
-        url: '/Report/Lastreportproxy',
+        url: isUnder ? '/Report/Uinitialize' : '/Report/Lastreportproxy',
         data: {
             week: timeString
         },
@@ -56,9 +57,10 @@ function getLastProfile (fn) {
 }
 
 function getCurrentProfile (fn) {
-    var timeString = getCurrentweekDate().substring(2);
+    var isUnder = !!(modelObj.userInfo && modelObj.userInfo.permission && modelObj.userInfo.permission === '本科生');
+    var timeString = isUnder ? getCurrentweekDate() : getCurrentweekDate().substring(2);
     $.ajax({
-        url: '/Report/Initialize',
+        url: isUnder ? '/Report/Uinitialize' : '/Report/Initialize',
         data: {
             week: timeString
         },
@@ -82,6 +84,7 @@ function getSession (fn) {
 }
 
 function history (username, fn) {
+    var isUnder = !!(modelObj.userInfo && modelObj.userInfo.permission && modelObj.userInfo.permission === '本科生');
     $.ajax({
         url: '/Report/Historyproxy',
         data: {
@@ -93,18 +96,22 @@ function history (username, fn) {
         dataType: 'text',
         success: function (str) {
             var json = (new Function("return " + str))();
+            json.rows.forEach(function (item) {
+                item.week = isUnder ? item.week : '20' + item.week;
+            });
             fn(json);
         }
     });
 }
 
 function reportdetail(username, date, fn) {
+    var isUnder = !!(modelObj.userInfo && modelObj.userInfo.permission && modelObj.userInfo.permission === '本科生');
     $.ajax({
         url: '/Report/Detail',
         type: 'POST',
         data: {
             name: username,
-            week: date
+            week: isUnder ? date : date.substring(2)
         },
         dataType: 'json',
         success: function (data) {
@@ -113,8 +120,12 @@ function reportdetail(username, date, fn) {
     });
 }
 
-function sendreport(to, subject, week_msg, next_msg, fn) {
+function sendreport(to, dateweek, username, week_msg, next_msg, fn) {
     var formData = new FormData();
+    var isUnder = !!(modelObj.userInfo && modelObj.userInfo.permission && modelObj.userInfo.permission === '本科生');
+    dateweek = isUnder ? dateweek : dateweek.substring(2);
+    var subject = '工作总结-' + dateweek + '-' + username;
+    to = isUnder ? '本期' + to.substring(2) : to;
     formData.append('to', to);
     formData.append('subject', subject);
     formData.append('week_msg', week_msg);
@@ -135,14 +146,18 @@ function sendreport(to, subject, week_msg, next_msg, fn) {
     });
 }
 
-function updatereport(user, week, subject, msg, fn) {
+function updatereport(username, dateweek, p1, p2, fn) {
+    var isUnder = !!(modelObj.userInfo && modelObj.userInfo.permission && modelObj.userInfo.permission === '本科生');
+    dateweek = isUnder ? dateweek : dateweek.substring(2);
+    var subject = '工作总结-' + dateweek + '-' + username;
+    var msg = '本周工作:' + '\n' + p1 + '\n' + '下周计划:' + '\n' +  p2;
     $.ajax({
         url: '/Report/Updatereport',
         data: {
-            week: week,
+            week: dateweek,
             subject: subject,
             msg: msg,
-            user: user
+            user: username
         },
         dataType: 'text',
         success: function (str) {
@@ -152,7 +167,7 @@ function updatereport(user, week, subject, msg, fn) {
     });
 }
 
-module.exports = {
+var modelObj = {
     login: login,
     getLastProfile: getLastProfile,
     getCurrentProfile: getCurrentProfile,
@@ -164,4 +179,5 @@ module.exports = {
     reportdetail: reportdetail,
     sendreport: sendreport,
     updatereport: updatereport
-}
+};
+module.exports = modelObj;

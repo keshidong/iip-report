@@ -10,6 +10,7 @@ $('body').append(html);
 $(document).on('afterSession', '#history',function() { //当进入history页面时
     model.history(model.userInfo.userName, function (data) {
         var htmlLast = template('history-list', data);
+        console.log(data)
         document.getElementById('history-contlist').innerHTML = htmlLast;
     });
 });
@@ -39,7 +40,7 @@ $('#history-contlist').on('tap', '.look-edit.reportedit-btn', function (event) {
      event.stopPropagation();
      var dateweek = $(this).data('reportdate');
 
-     if (dateweek !== model.lastWeek.substring(2) && dateweek !== model.currentWeek.substring(2)) {
+     if (dateweek !== model.lastWeek && dateweek !== model.currentWeek) {
          tips('时间较久，请登陆电脑编辑');
          return false;
      }

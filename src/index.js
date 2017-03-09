@@ -11,6 +11,7 @@ $(document).on('pagebeforeshow', function () {
     model.getSession(function (data) {
         if (data) {
             model.userInfo = data;
+            console.log(data)
             $('#' + pageid).trigger('afterSession');
             // 登录页跳转
             if (pageid === 'login') {
